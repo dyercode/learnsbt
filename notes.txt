@@ -1,0 +1,49 @@
+Borrowed heavily from sbt documentation and effective sbt
+
+By Convention sbt will find the following:
+    Sources in the base directory
+    Sources in src/main/scala or src/main/java
+    Tests in src/test/scala or src/test/java
+    Data files in src/main/resources or src/test/resources
+    jars in lib
+
+Personally I follow the src/main/* src/test/* conventions because they follow the same as maven and gradle.
+
+As far as the lib directory, prefer declaring dependencies in sbt and pulling from a maven/ivy repository.
+
+build.sbt is your starting point.
+
+Basic properties are name, version and scalaVersion
+
+Lines between sbt settings were required required, this has been lifted in 0.13.7.
+
+Important to set the sbt.version in project/build.properties file.  This keeps builds stable.  This fixes the build to the version of sbt you specify even if you have a newer sbt launcher installed.  This lets you keep builds consistent without needing to update them to the latest version right away.  Though you should keep this up to date.
+
+An sbt build consists of
+any .scala file in the project folder 
+These are usually used for sharing code/settings across .sbt files
+.sbt files can also be placed in the project folder to configure your build.  For example the sbt-idea.sbt sets up the sbt-idea plugin.  So anyone checking out this
+
+%% && % symbols are the sbt library syntax.
+%% when used between the groupId and artifactId will automatically append your scala version to the artifactId to get the correct version for cross compiled dependencies.
+
+Since sbt 0.13 only symbols needed are
+:=
++=     //append item to Seq
+++=    //append Seq to Seq
+
+A build definition is really a list of objects with type Setting[T]
+
+name, version, and scalaVersion are keys. Keys define a method := which returns a Setting[T]
+
+so the sbt files are really just a list of settings separated by blank lines.  This may help you think of why you're writing things like 'name := "learnsbt"' instead of just thinking of it as sbt magic.
+
+sbt run will automatically run either
+	an object extending App
+	an object with a main method
+
+When more than one is defined it will give you a choice of which to run
+
+~run this app, wait for it to run, then uncomment the second object in RunMe.scala for an example of both choosing between two apps and sbt's reactive functionality.
+
+Since IntelliJ became able to reliably import sbt projects I no longer use the sbt-idea plugin, however I've left it in as an example of an sbt plugin.
