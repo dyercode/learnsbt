@@ -4,8 +4,8 @@ class InterestingThing(
                         val name: String,
                         val number: Int,
                         val shiny: Boolean
-                        ) {
-  def suspicious = !shiny
+                      ) {
+  def suspicious: Boolean = !shiny
 }
 
 

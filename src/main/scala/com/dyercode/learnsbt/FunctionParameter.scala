@@ -1,39 +1,42 @@
 package com.dyercode.learnsbt
 
 object FunctionParameter {
-	// To take a function as a parameter you have to declare the function signature as the type
-	def callFunction(f: () => Any ) = f()
-	// function returns type any
+  // To take a function as a parameter you have to declare the function signature as the type
+  def callFunction(f: () => Any) = f()
 
-	// Type parameters can be used to return the same type as the function
-	def callFunctionReturnType[T](f:() => T): T = f()
+  // function returns type any
 
-	def filterInterestingThings (interestingThings:List[InterestingThing], filters: InterestingThingFilter*) = {
+  // Type parameters can be used to return the same type as the function
+  def callFunctionReturnType[T](f: () => T): T = f()
 
-		def matchAllFilters(thing: InterestingThing) = filters.forall(_(thing))
+  def filterInterestingThings(interestingThings: List[InterestingThing], filters: InterestingThingFilter*): List[InterestingThing] = {
 
-		interestingThings.filter(matchAllFilters) //apply lots of sugar
+    def matchAllFilters(thing: InterestingThing) = filters.forall(_ (thing))
 
-		// filters.foldLeft(interestingThings) {
-			// (accumulator: List[InterestingThing], filter: InterestingThingFilter) =>
-			// accumulator.filter(filter)
-		// }
-	}
+    interestingThings.filter(matchAllFilters) //apply lots of sugar
 
-	def function(functionScope: String) = {
-		def closure = {
-		    functionScope
-		}
-		closure
-	}
+    // filters.foldLeft(interestingThings) {
+    // (accumulator: List[InterestingThing], filter: InterestingThingFilter) =>
+    // accumulator.filter(filter)
+    // }
+  }
 
-	def closureIncrementer(number: Int)  = {
-		var functionScopeNumber = number
-		//Convention says to require parens when the method causes side effects
-		def closure(): Unit = functionScopeNumber = functionScopeNumber + 1
+  def function(functionScope: String): String = {
+    def closure = {
+      functionScope
+    }
 
-		closure()
-		closure()
-		functionScopeNumber
-	}
+    closure
+  }
+
+  def closureIncrementer(number: Int): Int = {
+    var functionScopeNumber = number
+
+    //Convention says to require parens when the method causes side effects
+    def closure(): Unit = functionScopeNumber = functionScopeNumber + 1
+
+    closure()
+    closure()
+    functionScopeNumber
+  }
 }

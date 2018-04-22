@@ -9,8 +9,8 @@ class FunctionParameterSuite extends FunSuite with MustMatchers {
   val mine = new InterestingThing(name = "My Thing", number = 11, shiny = true)
   val box = new InterestingThing(name = "Box", number = 3, shiny = false)
   val interestingThings = List(bauble, mine, box)
-  val trulyShinyFilter = InterestingThingFilters.shinyFilter(true)
-  val goesToElevenFilter = InterestingThingFilters.numberFilter(((x: Int) => x == 11))
+  val trulyShinyFilter: InterestingThingFilter = InterestingThingFilters.shinyFilter(true)
+  val goesToElevenFilter: InterestingThingFilter = InterestingThingFilters.numberFilter((x: Int) => x == 11)
 
   test("a method can take a function as an argument") {
     val fishMaker = () => "fish"
