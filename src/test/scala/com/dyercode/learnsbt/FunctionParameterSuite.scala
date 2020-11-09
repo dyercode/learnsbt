@@ -1,16 +1,18 @@
 package com.dyercode.learnsbt
 
-import org.scalatest.FunSuite
-import org.scalatest.MustMatchers
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.must
 
-class FunctionParameterSuite extends FunSuite with MustMatchers {
+class FunctionParameterSuite extends AnyFunSuite with must.Matchers {
 
   val bauble = new InterestingThing(name = "Bauble", number = 3, shiny = true)
   val mine = new InterestingThing(name = "My Thing", number = 11, shiny = true)
   val box = new InterestingThing(name = "Box", number = 3, shiny = false)
   val interestingThings = List(bauble, mine, box)
-  val trulyShinyFilter: InterestingThingFilter = InterestingThingFilters.shinyFilter(true)
-  val goesToElevenFilter: InterestingThingFilter = InterestingThingFilters.numberFilter((x: Int) => x == 11)
+  val trulyShinyFilter: InterestingThingFilter =
+    InterestingThingFilters.shinyFilter(true)
+  val goesToElevenFilter: InterestingThingFilter =
+    InterestingThingFilters.numberFilter((x: Int) => x == 11)
 
   test("a method can take a function as an argument") {
     val fishMaker = () => "fish"
@@ -23,10 +25,15 @@ class FunctionParameterSuite extends FunSuite with MustMatchers {
       val wrongFunction = (x,y) => "fish"
       FunctionParameter.callFunction(fishMaker) mustBe "fish"
     }
-  */
+   */
 
-  test("we can create a function and use that function to pass to another function to do something useful") {
-    FunctionParameter.filterInterestingThings(interestingThings, trulyShinyFilter) must equal(List(bauble, mine))
+  test(
+    "we can create a function and use that function to pass to another function to do something useful"
+  ) {
+    FunctionParameter.filterInterestingThings(
+      interestingThings,
+      trulyShinyFilter
+    ) must equal(List(bauble, mine))
 
   }
 
