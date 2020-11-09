@@ -7,6 +7,6 @@ object FunctionInFunction {
       number: Int,
       existingHolder: NumberHolder = initialNumberHolder
   ): NumberHolder = { (checkNumber: Int) =>
-    if (checkNumber == number) true else existingHolder(checkNumber)
+    (checkNumber == number) || existingHolder(checkNumber)
   }
 }
